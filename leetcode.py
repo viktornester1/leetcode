@@ -6,14 +6,48 @@ class Solution:
     def minSubArrayLen(self, target: int, nums: List[int]) -> int:
         right = 0
         left = 0
-        sumOfCurrentWindow = 0
         result = 0
-        while right != len(nums):
-            print(len(nums))
+
+        sumOfCurrentWindow = 0
+        while left != len(nums):  # ?
+            temp_list = []
+            while sum(temp_list) <= target:
+                temp_list = nums[left:right+1]
+                right += 1
+            result = len(temp_list)
+            print(f"List:   {temp_list}")
+            print(f"Result: {result}")
+
+            while sum(temp_list) >= target:
+                left += 1
+
+
+
+
+        return result
 
 
 s = Solution()
-s.minSubArrayLen(7, [2, 3, 1, 2, 4, 3])
+prnt = s.minSubArrayLen(7, [2, 3, 1, 2, 4, 3])
+print(prnt)
+"""     
+        ...   
+        sumOfCurrentWindow = 0
+        while left != len(nums):  # ?
+            temp_list = []
+            while sum(temp_list) <= target:
+                temp_list.append(nums[right])
+                right += 1
+            result = len(temp_list)
+            print(temp_list)
+
+            while sum(temp_list) >= target:
+                pass
+                
+
+
+        return result
+"""
 
 # Minimum Rounds to Complete All Tasks
 """
