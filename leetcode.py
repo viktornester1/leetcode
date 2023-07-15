@@ -1,4 +1,5 @@
 # Minimum Size Subarray Sum
+
 from typing import List
 
 
@@ -6,48 +7,56 @@ class Solution:
     def minSubArrayLen(self, target: int, nums: List[int]) -> int:
         right = 0
         left = 0
-        result = 0
+        result = float('inf')
 
         sumOfCurrentWindow = 0
-        while left != len(nums):  # ?
-            temp_list = []
-            while sum(temp_list) <= target:
-                temp_list = nums[left:right+1]
-                right += 1
-            result = len(temp_list)
-            print(f"List:   {temp_list}")
-            print(f"Result: {result}")
+        while right < len(nums):
 
-            while sum(temp_list) >= target:
+            sumOfCurrentWindow += nums[right]
+
+            while sumOfCurrentWindow >= target:
+                result = min(result, right - left + 1)
+                sumOfCurrentWindow -= nums[left]
                 left += 1
 
+            right += 1
 
+        if result == float('inf'):
+            return 0
+        else:
+            return result
 
-
-        return result
-
-
-s = Solution()
-prnt = s.minSubArrayLen(7, [2, 3, 1, 2, 4, 3])
-print(prnt)
-"""     
-        ...   
-        sumOfCurrentWindow = 0
-        while left != len(nums):  # ?
-            temp_list = []
-            while sum(temp_list) <= target:
-                temp_list.append(nums[right])
-                right += 1
-            result = len(temp_list)
-            print(temp_list)
-
-            while sum(temp_list) >= target:
-                pass
-                
-
-
-        return result
 """
+    def minSubArrayLen(self, target: int, nums: List[int]) -> int:
+        right = 0
+        left = 0
+        result = 0
+
+        temp_list = []
+        while right != len(nums)+1:  # ?
+
+            if sum(temp_list) <= target:
+                temp_list = nums[left:right+1]
+                right += 1
+                result = temp_list
+
+            elif sum(temp_list) > target:
+                left += 1
+                temp_list = nums[left:right + 1]
+
+            print(f"List:   {temp_list}")
+            print(f"Result: {result}")
+            print(f"Right: {right}")
+            print(f"Left: {left}")
+
+        if sum(result) >= target:
+            return len(result)
+        else:
+            return 0
+"""
+#  Minimum Size Subarray Sum
+
+#
 
 # Minimum Rounds to Complete All Tasks
 """
